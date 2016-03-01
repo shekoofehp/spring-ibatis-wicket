@@ -1,0 +1,63 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="com.shekoofeh" />
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="jdbc" />
+	</bean>
+
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" /> <property 
+		name="url" value="jdbc:mysql://localhost:3306/mydb?autoReconnect=true&amp;createDatabaseIfNotExist=true&amp;" 
+		/> <property name="username" value="root" /> <property name="password" value="mysql" 
+		/> </bean> -->
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+
+
+	<bean id="reader" class="com.ibatis.common.resources.Resources"
+		factory-method="getResourceAsReader">
+
+		<constructor-arg value="sqlmap-config.xml" type="java.lang.String" />
+
+	</bean>
+	<bean id="sqlMapClient" class="com.ibatis.sqlmap.client.SqlMapClientBuilder"
+		factory-method="buildSqlMapClient">
+		<constructor-arg type="java.io.Reader" ref="reader" />
+
+	</bean>
+
+
+	<bean id='jsrDAO' class="com.shekoofeh.JsrDAOImpl">
+
+		<property name='sqlMapClient'>
+			<ref bean='sqlMapClient' />
+		</property>
+	</bean>
+	<bean id="jsrService" class="com.shekoofeh.JsrService">
+		<property name='jsrDAO'>
+			<ref bean='jsrDAO' />
+		</property>
+	</bean>
+	<!-- <bean id="jsrDAO" class="spring.maven.ibatis.JsrDAOImpl" /> -->
+
+
+
+
+</beans>
+

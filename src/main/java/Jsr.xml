@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="jsrmap">
+    
+    <typeAlias type = "com.shekoofeh.Jsr" alias = "jsr"/>
+ 
+    <resultMap class = "jsr" id = "resultmap">
+        <result property = "id" column = "JsrId"/>
+        <result property = "name" column = "JsrName"/>
+        <result property = "description" column = "JsrDescription"/>
+        <result property = "specLead" column = "SpecLead"/>
+    </resultMap>
+
+    <select id = "selectAllJsrs" resultMap = "resultmap">
+        select * from Jsr
+    </select>
+
+    <select id = "selectJsrById" resultMap = "resultmap" parameterClass = "string">
+        select * from Jsr where JsrId = #value#
+    </select>
+
+    <insert id = "insertJsr" parameterClass="jsr">
+        insert into Jsr (JsrId, JsrName, JsrDescription, SpecLead) values (#id#, #name#, #description#, #specLead#)
+    </insert>
+
+    <delete id = "deleteJsr" parameterClass="string">
+        delete from Jsr where JsrId = #value#
+    </delete>
+
+    <update id = "updateJsr" parameterClass="jsr">
+        update Jsr set JsrName = #name#, JsrDescription = #description#, SpecLead = #specLead#
+        where JsrId = #id#
+    </update>
+
+</sqlMap>

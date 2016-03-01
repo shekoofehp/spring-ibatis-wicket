@@ -1,0 +1,44 @@
+<html>
+<head>
+<style>
+label {
+	background-color: #eee;
+	padding: 4px;
+}
+  
+.feedbackPanelERROR {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<h1>Wicket PropertyModel Example - UserPage.html</h1>
+
+	<div wicket:id="feedback"></div>
+	<form wicket:id="jsrForm">
+		
+		<p>
+			<label>Id</label>: <input wicket:id="id" type="text"
+				size="20" />
+		</p>
+		<p>
+			<label>Name</label>: <input wicket:id="name" type="text"
+				size="20" />
+		</p>
+		
+		<p>
+			<label>Description</label>: <input wicket:id="description" type="text"
+				size="20" />
+		</p>
+		<p>
+			<label>SpecLead</label>: <input wicket:id="specLead" type="text"
+				size="20" />
+		</p>
+		
+		<input type="submit" value="Submit" />
+	</form>
+
+</body>
+</html>
+
+
